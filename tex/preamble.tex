@@ -1,0 +1,31 @@
+\usepackage{hyperref}
+\usepackage{pgf}
+\usepackage[round,authoryear]{natbib}
+
+% Function to get environment variables for conditional compilation
+% of abridged (conference) and extended (arXiv) versions.
+\usepackage{etoolbox}
+\usepackage{xstring}
+\usepackage{catchfile}
+\def\newtemp{}%
+\newcommand{\getenv}[2][]{%
+    \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{}%
+    \StrGobbleRight{\temp}{1}[\newtemp]%  Delete the trailing whitespace character
+    \if\relax\detokenize{#1}\relax\temp\else\edef#1{\newtemp}\fi%
+}%
+
+% Convenience wrapper around our environment variable.
+% Can be called with one argument for extended-only blocks.
+\getenv[\ABRIDGED]{ABRIDGED}
+\newcommand\ifextended[2]{%
+    \ifdefstring{\ABRIDGED}{true}{%
+        #2%
+    }{%
+        #1%
+    }%
+}
+
+% Necessary for using Matplotlib's .pgf output.
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{2212}{-}
+\renewcommand{\sffamily}{}

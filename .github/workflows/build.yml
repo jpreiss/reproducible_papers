@@ -1,0 +1,28 @@
+name: Reproducible paper build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Ubuntu Packages
+      run: |
+        sudo apt install texlive-full
+
+    - name: Conda
+      uses: conda-incubator/setup-miniconda@v2.0.0
+      with:
+        environment-file: environment.yml
+        activate-environment: reproducible
+
+    - name: Build
+      shell: bash -l {0}
+      run: |
+        make -j8 build/reproducible.pdf
+        make -j8 abridged_build/reproducible.pdf

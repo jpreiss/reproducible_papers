@@ -1,0 +1,11 @@
+name: reproducible
+dependencies:
+  - python=3.8
+  - matplotlib
+  - numpy
+  - pandas
+  - pyarrow
+  - seaborn
+  - pip
+  - pip:
+    - arxiv-latex-cleaner

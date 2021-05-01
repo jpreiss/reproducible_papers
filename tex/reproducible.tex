@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\input{preamble.tex}
+
+\title{Reproducible Papers with Makefiles}
+\author{James A. Preiss}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    We present a framework for completely reproducible academic papers.%
+    \ifextended{}{\footnote{%
+        An extended version of this paper is available at \url{arxiv.org/abs/9901.0001}.%
+    }}
+\end{abstract}
+
+\section{Introduction}
+
+The Unix program \texttt{make} was mainly inspired by transitive dependencies in C program compilation \citep{feldman1979make},
+but it is useful for other processes too.
+
+
+
+\begin{figure}[h]
+    \centering
+    \input{figures/sine_taylor.pgf}
+    \caption{Taylor series approximations of sine function.}
+\end{figure}
+
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{reproducible}
+
+\ifextended{
+    \newpage
+    \appendix
+    \section{Appendix}
+    This Appendix should only appear in the unabridged version.
+}
+
+\end{document}
