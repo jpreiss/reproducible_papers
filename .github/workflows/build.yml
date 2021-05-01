@@ -11,8 +11,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Install Ubuntu Packages
+    - name: TeXLive
       run: |
+        # This "full" takes forever to install, but trying to install packages
+        # with tlmgr on a github CI machine is like being in the movie Brazil.
         sudo apt install texlive-full
 
     - name: Conda
@@ -21,8 +23,12 @@ jobs:
         environment-file: environment.yml
         activate-environment: reproducible
 
-    - name: Build
+    - name: Build Figures
       shell: bash -l {0}
       run: |
-        make -j8 build/reproducible.pdf
-        make -j8 abridged_build/reproducible.pdf
+        make figs
+
+    - name: Build LaTeX
+      run: |
+        make build/reproducible.pdf
+        make abridged_build/reproducible.pdf

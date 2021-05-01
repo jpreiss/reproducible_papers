@@ -1,0 +1,2 @@
+pgf.texsystem : pdflatex
+axes.unicode_minus : False

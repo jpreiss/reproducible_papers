@@ -1,8 +1,4 @@
 tex/*/*.pdf
-# should be generated from template by Makefile.
-matplotlibrc
-
-github/
 
 # Created by https://www.gitignore.io/api/latex,python
 # Edit at https://www.gitignore.io/?templates=latex,python
@@ -288,7 +284,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
