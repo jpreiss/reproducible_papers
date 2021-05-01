@@ -1,3 +1,0 @@
-hyperref
-letltxmacro
-pgf
