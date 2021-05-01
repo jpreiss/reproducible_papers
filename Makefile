@@ -1,3 +1,7 @@
+# File extensions. Change these according to your preference.
+FIGEXT = pgf
+DATAEXT = feather
+
 # Subroutines.
 LATEXMK = latexmk -pdf -cd -interaction=nonstopmode
 
@@ -40,24 +44,24 @@ build/arxiv.zip: build/arxiv
 .PHONY: figs
 
 figs: \
-figures/sine_taylor.pgf \
+figures/sine_taylor.$(FIGEXT) \
 
 # Rules to make figures from data files.
 # Figure-generating scripts should take the input data path and output image
 # path as the two command-line args.
-figures/%.pgf: data/%.feather src/%_plot.py
-	python src/$*_plot.py data/$*.feather $@
+figures/%.$(FIGEXT): data/%.$(DATAEXT) src/%_plot.py
+	python src/$*_plot.py data/$*.$(DATAEXT) $@
 
 # Rule to make figure data files from code.
 # Data-generating scripts should take output path as the last command-line arg.
 # Each figure can optionally have a subdirectory of inputs as well, in which
 #   case the directory path is passed as the second command-line arg.
 # If multiple figures depend on the same input, use softlinks.
-data/%.feather: src/%_data.py inputs/%/*
+data/%.$(DATAEXT): src/%_data.py inputs/%/*
 	python src/$*_data.py $@ inputs/$*
 
 # Do not delete data files when done building downstream dependencies.
-.PRECIOUS: data/%.feather
+.PRECIOUS: data/%.$(DATAEXT)
 
 # In case a data-generating script doesn't have any input data, don't complain.
 inputs/%/*:
