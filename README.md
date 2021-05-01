@@ -71,16 +71,6 @@ see the included example for details.
 - All files in `data/` are marked as `.PRECIOUS` in the Makefile,
   so they will not be deleted even though they are intermediate results.
 
-- Adding your own non-pattern rules to the Makefile can be useful.
-  For example, projects using symbolic math might want to add
-  a build step that generates a `.tex` file.
-  Projects with very slow multi-stage computations might want to add
-  files to store intermediate results before `data/figname.feather`.
-
-- If your project contains a very large amount of source code,
-  it may be better to create a new library-like repository
-  and include it as a git submodule in `src/`.
-
 
 ## Extra features
 
@@ -95,3 +85,23 @@ see the included example for details.
 
 - To package the arXiv source code for the unabridged version,
   run `make build/arxiv.zip`.
+
+
+## Suggestions
+
+- Adding your own non-pattern rules to the Makefile can be useful.
+  For example, projects using symbolic math might want to add
+  a build step that generates a `.tex` file.
+  Projects with very slow multi-stage computations might want to add
+  files to store intermediate results before `data/figname.feather`.
+
+- If your project contains a very large amount of source code,
+  it may be better to create a new library-like repository
+  and include it as a git submodule in `src/`.
+
+- To help decouple the data-generating and plotting stages,
+  we suggest storing a generous amount of data in the "tidy" data layout
+  and using plotting tools designed to consume "tidy" data.
+
+- For deterministic results,
+  remember to seed random number generators with a constant.
