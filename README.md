@@ -29,7 +29,7 @@ A few other convenient features are included:
 This is a low-tech solution using directory layout conventions and Makefile pattern rules.
 Your project is laid out like:
 
-    src/     : Source code for computations and figures.
+    src/     : Source code for computations, figures, and generated TeX files.
     tex/     : LaTeX code for the paper.
     inputs/  : Data sets from "the world" -- not your own computational results.
 
@@ -38,8 +38,9 @@ The results are stored like:
     data/    : Computational results, optionally using /inputs/.
     figures/ : Plots, produced from files in /data/.
     build/   : Final .pdf file and .zip file for arXiv.
+    tex/     : Generated LaTeX files are added alongside your hand-written ones.
 
-The Makefile pattern rules implement the following dependency structure:
+The Makefile pattern rules for figures implement the following dependency structure:
 
     inputs/figname/* -----
                           \
@@ -50,6 +51,13 @@ The Makefile pattern rules implement the following dependency structure:
 The main functions in `figname_data.py` and `figname_plot.py`
 must follow particular command-line argument conventions --
 see the included example for details.
+
+The Makefile pattern rules for generated LaTeX code (e.g. from symbolic math)
+implement the following dependency structure:
+
+    src/texname_gentex.py -----> tex/texname_gen.tex
+
+THe main functions in `texname_gentex.py` should print to `stdout`.
 
 
 **Notes:**
@@ -93,15 +101,16 @@ see the included example for details.
   For example, projects using symbolic math might want to add
   a build step that generates a `.tex` file.
   Projects with very slow multi-stage computations might want to add
-  files to store intermediate results before `data/figname.feather`.
+  files to store intermediate results between `inputs/figname/*` (if any)
+  and `data/figname.feather`.
 
-- If your project contains a very large amount of source code,
-  it may be better to create a new library-like repository
-  and include it as a git submodule in `src/`.
+- If your project contains a lot of source code, it may be better to create a
+  separate library-like repository and include it as a git submodule in `src/`.
 
 - To help decouple the data-generating and plotting stages,
-  we suggest storing a generous amount of data in the "tidy" data layout
-  and using plotting tools designed to consume "tidy" data.
+  store all the data you think you might need in the "tidy" data layout.
+  Plotting tools designed to consume "tidy" data make it easy to select and
+  combine data to generate many different kinds of plots.
 
 - For deterministic results,
   remember to seed random number generators with a constant.

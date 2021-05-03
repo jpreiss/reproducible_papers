@@ -6,6 +6,7 @@ dependencies:
   - pandas
   - pyarrow
   - seaborn
+  - sympy
   - pip
   - pip:
     - arxiv-latex-cleaner

@@ -2,19 +2,20 @@
 FIGEXT = pgf
 DATAEXT = feather
 
-# Subroutines.
+# Subroutines / "internal" variables.
 LATEXMK = latexmk -pdf -cd -interaction=nonstopmode
+TEXDEPS = tex/*.tex tex/*.bib
 
 #
 # Main pdf build.
 #
 
 # Unabridged paper.
-build/reproducible.pdf: tex/*.tex figs
+build/reproducible.pdf: $(TEXDEPS) figs
 	$(LATEXMK) -outdir=../build tex/reproducible.tex
 
 # Abridged paper.
-abridged_build/reproducible.pdf: tex/*.tex figs
+abridged_build/reproducible.pdf: $(TEXDEPS) figs
 	ABRIDGED=true $(LATEXMK) -outdir=../abridged_build tex/reproducible.tex
 
 
@@ -65,6 +66,22 @@ data/%.$(DATAEXT): src/%_data.py inputs/%/*
 
 # In case a data-generating script doesn't have any input data, don't complain.
 inputs/%/*:
+
+
+#
+# Generated TeX files.
+#
+
+# Tell Make about all generated .tex files manually. TODO: scrape .tex files?
+.PHONY: gentex
+
+gentex: \
+tex/quadratic_gen.tex \
+
+# Rules to generate .tex files from code.
+# TeX-generating scripts should print output to stdout.
+tex/%_gen.tex: src/%_gentex.py
+	python src/$*_gentex.py > $@
 
 
 #

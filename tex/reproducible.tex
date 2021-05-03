@@ -1,8 +1,9 @@
 \documentclass{article}
+\usepackage[margin=1.5in]{geometry}
 
 \input{preamble.tex}
 
-\title{Reproducible Papers with Makefiles}
+\title{Reproducible Papers with\\ \LaTeX, Python, and Makefiles}
 \author{James A. Preiss}
 \date{\today}
 
@@ -23,7 +24,10 @@
 The Unix program \texttt{make} was mainly inspired by transitive dependencies in C program compilation \citep{feldman1979make},
 but it is useful for other processes too.
 
+\section{Generate \LaTeX\ with symbolic math}
+\input{quadratic_gen.tex}
 
+\section{Build figures from data files}
 
 \begin{figure}[h]
     \centering
