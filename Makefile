@@ -4,7 +4,7 @@ DATAEXT = feather
 
 # Subroutines / "internal" variables.
 LATEXMK = latexmk -pdf -cd -interaction=nonstopmode
-TEXDEPS = tex/*.tex tex/*.bib
+TEXDEPS = tex/*.tex tex/*.bib gentex
 
 #
 # Main pdf build.
