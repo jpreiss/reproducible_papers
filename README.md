@@ -1,8 +1,5 @@
 # reproducible_papers
 
-
-## What it does
-
 This repository provides a framework for fully reproducible academic papers.
 Even though **no figures or computational results are committed to the repository**,
 anyone can generate an exact copy of your published `.pdf` with the following steps<sup>†</sup>:
@@ -24,7 +21,7 @@ A few other convenient features are included:
 † We assume a Unix-like system with Anaconda and LaTeX installed.
 
 
-## How it works
+## Directory structure
 
 This is a low-tech solution using directory layout conventions and Makefile pattern rules.
 Your project is laid out like:
@@ -40,6 +37,8 @@ The results are stored like:
     build/   : Final .pdf file and .zip file for arXiv.
     tex/     : Generated LaTeX files are added alongside your hand-written ones.
 
+## Generating figures
+
 The Makefile pattern rules for figures implement the following dependency structure:
 
     inputs/figname/* -----
@@ -48,59 +47,71 @@ The Makefile pattern rules for figures implement the following dependency struct
                                                       /
     src/figname_plot.py ------------------------------
 
-The main functions in `figname_data.py` and `figname_plot.py`
-must follow particular command-line argument conventions --
-see the included example for details.
+**Command-line args:**
+The main functions in `figname_data.py` and `figname_plot.py` must follow
+particular command-line argument conventions -- see the included example for
+details.
+
+**Explicit list of figures:**
+The Makefile applies these patterns in an "opt-in" way based on the list
+`figs`, which you must edit every time you add a figure. Any file that isn't
+part of `figs` and/or doesn't follow the `_data.py` or `_plot.py` naming
+conventions is ignored. Therefore, your library code and other intermediate
+data can be stored however you wish.
+
+**Controlling the figure format:**
+The figure format is controlled by the variable `FIGEXT` in the Makefile.
+The default is `.pgf`. This format works very nicely with LaTeX, but it is not
+easily viewed as a standalone document. Change `FIGEXT` to your preferred
+format if desired.
+
+**Controlling the data format:**
+The data format is controlled by the variable `DATAEXT` in the Makefile.
+The default is `.feather`, but this was mostly an arbitrary choice.
+
+**Data is precious:**
+All files in `data/` are marked as `.PRECIOUS` in the Makefile, so they will
+not be deleted even though they are
+[intermediate files](https://www.gnu.org/software/make/manual/html_node/Chained-Rules.html).
+
+
+## Generating LaTeX code
 
 The Makefile pattern rules for generated LaTeX code (e.g. from symbolic math)
 implement the following dependency structure:
 
     src/texname_gentex.py -----> tex/texname_gen.tex
 
-THe main functions in `texname_gentex.py` should print to `stdout`.
+The main functions in `texname_gentex.py` should print to `stdout`.
+
+The Makefile applies this pattern in an "opt-in" way based on the list
+`gentex`, which you must edit every time you add a generated LaTeX file.
 
 
-**Notes:**
+## Abriged/Extended versions
 
-- The Makefile applies these patterns in an "opt-in" way
-  based on the list `figs`, which you must edit every time you add a figure.
-  Any file that isn't part of `figs` and/or doesn't follow the
-  `_data.py` or `_plot.py` naming conventions is ignored.
-  Therefore, your library code and other intermediate data can be stored however you wish.
+The included `tex/preamble.tex` contains the implementation of conditional
+compilation based on the environment variable `ABRIDGED`.  See the example
+`tex/reproducible.tex` for usage.
 
-- The figure format is controlled by the variable `FIGEXT` in the Makefile.
-  The default is `.pgf`. This format works very nicely with LaTeX,
-  but it is not easily viewed as a standalone document.
-  Change `FIGEXT` to your preferred format if desired.
-
-- The data format is controlled by the variable `DATAEXT` in the Makefile.
-  The default is `.feather`, but this was mostly an arbitrary choice.
-
-- All files in `data/` are marked as `.PRECIOUS` in the Makefile,
-  so they will not be deleted even though they are intermediate results.
+The default `make` target is the unabridged/extended version.
+To build the abridged version, run `make abridged_build/reproducible.pdf`.
+It will set the environment variable for you and store the result separately.
 
 
-## Extra features
+## .zip generation for ArXiv
 
-- The included `tex/preamble.tex` contains the implementation of
-  conditional compilation based on the environment variable `ABRIDGED`.
-  See the example `tex/reproducible.tex` for usage.
-
-- The default `make` target is the unabridged/extended version.
-  To build the abridged version, run
-  `make abridged_build/reproducible.pdf`.
-  It will set the environment variable for you and store the result separately.
-
-- To package the arXiv source code for the unabridged version,
-  run `make build/arxiv.zip`.
+To package the source code for upload to arXiv, run `make build/arxiv.zip`.
+The unabridged version is zipped. The LaTeX source files are passed through
+[arxiv-latex-cleaner](https://github.com/google-research/arxiv-latex-cleaner)
+to strip comments. The zipped package includes only the `.bbl` file generated
+by BibTeX instead of the `.bib` files, so only the references you used in the
+paper are included.
 
 
-## Suggestions
+## Tips / Suggestions
 
-- Adding your own non-pattern rules to the Makefile can be useful.
-  For example, projects using symbolic math might want to add
-  a build step that generates a `.tex` file.
-  Projects with very slow multi-stage computations might want to add
+- Projects with very slow multi-stage computations might want to add
   files to store intermediate results between `inputs/figname/*` (if any)
   and `data/figname.feather`.
 
