@@ -23,12 +23,10 @@ jobs:
         environment-file: environment.yml
         activate-environment: reproducible
 
-    - name: Build Figures
+    - name: Build
       shell: bash -l {0}
       run: |
         make figs
-
-    - name: Build LaTeX
-      run: |
+        make gentex
         make build/reproducible.pdf
         make abridged_build/reproducible.pdf
