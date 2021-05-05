@@ -47,6 +47,31 @@ The Makefile pattern rules for figures implement the following dependency struct
                                                       /
     src/figname_plot.py ------------------------------
 
+There are three possible output types: Data, Figure, and TeX.
+Each type may be created from code only, or from code and a data file.
+Examples of all six input/output combinations are provided.
+
+The special case is the (Code, Data) -> (Data), which could be used for:
+
+- Saving intermediate results in very slow computations.
+- Building several plots/tables from one experiment.
+- Parameterizing a data generation process.
+- etc...
+
+For this case, there is no formula for deriving the input data file name from
+the output data file name. The user must write the rule manually.
+
+We provide examples of all six combinations.
+
+Input  Output  Description         Example
+---------------------------------------------------------
+None   Data    Data generation     sine_derivs_data.py
+None   Figure  Figure generation   quadratic_roots_fig.py
+None   TeX     TeX generation      quadratic_gentex.py
+Data   Data    Data processing     sine_taylor_data.py
+Data   Figure  Data visualization  sine_taylor_fig.py
+Data   TeX     Tables, etc.        sine_taylor_gentex.py
+
 **Command-line args:**
 The main functions in `figname_data.py` and `figname_plot.py` must follow
 particular command-line argument conventions -- see the included example for

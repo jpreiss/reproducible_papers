@@ -13,11 +13,11 @@ def taylor_series(x, derivs):
     return y
 
 
-def main(outpath, inpath):
+def main(derivs_path, outpath):
 
     records = []
     xs = np.linspace(-np.pi, np.pi, 100)
-    max_order = 5
+    max_order = 7
 
     for x, y in zip(xs, np.sin(xs)):
         records.append({
@@ -26,7 +26,7 @@ def main(outpath, inpath):
             "order": "exact",
         })
 
-    sine_derivs = np.loadtxt(inpath + "/sine_derivatives.csv")
+    sine_derivs = pd.read_feather(derivs_path).to_numpy().flatten()
 
     for order in range(1, max_order + 1, 2):
         ys = taylor_series(xs, sine_derivs[:(order+1)])

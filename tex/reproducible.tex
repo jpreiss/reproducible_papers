@@ -24,10 +24,28 @@
 The Unix program \texttt{make} was mainly inspired by transitive dependencies in C program compilation \citep{feldman1979make},
 but it is useful for other processes too.
 
-\section{Generate \LaTeX\ with symbolic math}
+
+\section{Generate \LaTeX\ and figures from scratch}
+
 \input{quadratic_gen.tex}
 
-\section{Build figures from data files}
+\begin{figure}[h]
+    \centering
+    \input{figures/quadratic_roots.pgf}
+    \caption{A quadratic polynomial with two distinct real roots.}
+\end{figure}
+
+
+\section{Generate \LaTeX\ and figures from data files}
+
+\begin{table}[h]
+    \centering
+    \input{sine_taylor_gen.tex}
+    \caption{%
+        Maximum absolute error of Taylor series for $\sin x$
+        on interval $x \in [-\pi, \pi]$.
+    }
+\end{table}
 
 \begin{figure}[h]
     \centering
@@ -35,7 +53,7 @@ but it is useful for other processes too.
     \caption{Taylor series approximations of sine function.}
 \end{figure}
 
-\newpage
+
 \bibliographystyle{plainnat}
 \bibliography{reproducible}
 
