@@ -12,7 +12,7 @@ anyone can generate an exact copy of your published `.pdf` with the following st
 
 Capturing the dependencies between LaTeX, figures, data, and code in a Makefile
 and storing computational results on disk
-ensures that the paper always reflects the changes in the data and code
+ensures that the paper always reflects changes in the data and code
 without requiring a full rebuild for every change.
 
 A few other convenient features are included:
@@ -84,14 +84,14 @@ It may also be useful to generate data files from other data files, for example:
 - Parameterizing a data generation process, with parameters stored as input data.
 - etc...
 
-For this case, there is no formula for deriving the input data file name from
+With data-to-data scripts there is no formula to derive the input file name from
 the output file name. The user must write the rule manually in the Makefile.
 This is demonstrated by the example `sine_taylor_data.py`.
 
 #### List outputs explicitly
 `make` will apply the figure- and LaTeX-generating rules in an "opt-in" way
 based on the lists `figs` and `texs` in the Makefile. You must edit these
-lists whenever you add a new figure our generated LaTeX file.
+lists whenever you add a new figure or generated LaTeX file.
 
 #### Controlling figure and data formats
 The figure and data formats are controlled by the variables `FIGEXT` and
