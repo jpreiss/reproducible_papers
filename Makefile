@@ -40,11 +40,11 @@ LATEXMK = latexmk -pdf -cd -interaction=nonstopmode
 TEXDEPS = tex/*.tex tex/*.bib $(texs) $(figs)
 
 # Unabridged (extended) paper.
-build/$(NAME).pdf build/$(NAME).bbl &: $(TEXDEPS)
+build/$(NAME).pdf build/$(NAME).bbl: $(TEXDEPS)
 	$(LATEXMK) -jobname=build/$(NAME) tex/$(NAME).tex
 
 # Abridged paper.
-abridged_build/$(NAME).pdf abridged_build/$(NAME).bbl &: $(TEXDEPS)
+abridged_build/$(NAME).pdf abridged_build/$(NAME).bbl: $(TEXDEPS)
 	ABRIDGED=true $(LATEXMK) -jobname=abridged_build/$(NAME) tex/$(NAME).tex
 
 
