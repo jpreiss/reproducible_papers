@@ -116,7 +116,7 @@ data/%.$(DATAEXT):
 
 clean:
 	rm -f $(texs)
+	rm -f $(figs)
 	rm -rf data/*
-	rm -rf figures/*
 	rm -rf build/*
 	rm -rf abridged_build/*
