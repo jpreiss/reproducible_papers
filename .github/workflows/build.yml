@@ -26,7 +26,5 @@ jobs:
     - name: Build
       shell: bash -l {0}
       run: |
-        make figs
-        make gentex
         make build/reproducible.pdf
         make abridged_build/reproducible.pdf
