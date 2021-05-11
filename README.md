@@ -1,6 +1,6 @@
 # reproducible papers
 
-A framework for fully reproducible academic papers.
+A "framework" (Makefile pattern rules + conventions) for fully reproducible academic papers.
 Even though no figures or computational results are committed to the repository,
 anyone can generate an exact copy of your published `.pdf` with the following steps<sup>†</sup>:
 
