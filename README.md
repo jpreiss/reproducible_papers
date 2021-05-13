@@ -151,3 +151,7 @@ We provide examples of each:
 
 - For deterministic results,
   remember to seed random number generators with a constant.
+  
+- To use this repository as a starting point for your own project,
+  `git clone` it, then `rm -rf .git` and `git init` to start your own repo
+  with a clean commit history.
