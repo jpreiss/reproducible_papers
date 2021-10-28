@@ -69,7 +69,7 @@ corresponding `x.data` file. We support three cases:
 #### Command-line arguments
 Figure-generating scripts should take the input and output paths as command-line arguments:
 
-    python src/x_data.py data/x.data figures/x.img
+    python src/x_fig.py data/x.data figures/x.img
 
 LaTeX-generating scripts should take the input path as the command-line argument and print to `stdout`:
 
