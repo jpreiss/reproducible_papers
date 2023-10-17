@@ -24,6 +24,13 @@ A few other convenient features are included:
 † We assume a Unix-like system with Anaconda and LaTeX installed.
 
 
+## Getting started
+  
+To use this repository as a starting point for your own project, click "Use
+this template" above. Or, you can `git clone` it, then `rm -rf .git` and `git
+init` to start your own repo with a clean commit history.
+
+
 ## Directory structure
 
 This is a low-tech solution using directory layout conventions and Makefile pattern rules.
@@ -151,7 +158,3 @@ We provide examples of each:
 
 - For deterministic results,
   remember to seed random number generators with a constant.
-  
-- To use this repository as a starting point for your own project,
-  `git clone` it, then `rm -rf .git` and `git init` to start your own repo
-  with a clean commit history.
