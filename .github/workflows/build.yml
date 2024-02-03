@@ -11,11 +11,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: TeXLive
-      run: |
-        # This "full" takes forever to install, but trying to install packages
-        # with tlmgr on a github CI machine is like being in the movie Brazil.
-        sudo apt install texlive-full
+    - name: Setup TeX Live
+      uses: teatimeguest/setup-texlive-action@v3
+      with:
+        packages: scheme-basic
 
     - name: Conda
       uses: conda-incubator/setup-miniconda@v3
