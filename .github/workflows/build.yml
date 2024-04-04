@@ -14,7 +14,7 @@ jobs:
     - name: Setup TeX Live
       uses: teatimeguest/setup-texlive-action@v3
       with:
-        packages: scheme-basic xetex fontspec underscore
+        packages: scheme-basic xetex fontspec underscore latexmk
 
     - name: Conda
       uses: conda-incubator/setup-miniconda@v3
